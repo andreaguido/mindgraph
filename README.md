@@ -4,7 +4,7 @@ Prototype repository for the Stage-1 proposal "Measuring Causal Mental Models at
 
 The instrument reads a free-text answer, for example to "In your own words, what causes X, and how are the causes related?", and returns the respondent's causal mental model as a directed acyclic graph (DAG) over the factors of an *a priori* taxonomy. The model is validated as a coder: on a benchmark sample, its agreement with two trained human coders is compared with the agreement between the two humans.
 
-> **Status: proof of concept.** The code, prompts and taxonomies are the ones used in the Climate Change Narratives project. Survey responses and the human-coded benchmark are **not** included yet: they will be released once the consent check is complete. All example data in this repository are synthetic.
+> **Status: proof of concept.** The code, prompts and taxonomies are the ones used in the Climate Change Narratives project. Survey responses, human codings and model outputs from that project are **not** released. All example data in this repository are synthetic.
 
 ## Workflow
 
@@ -91,7 +91,7 @@ python src/agreement.py \
 - **Versioned coding.** Every output record stores `coding_version`, a hash of the filled system prompt (template + taxonomy) and the model name, as well as the model and the reasoning effort. Results produced under different instruments cannot be mixed by accident.
 - **Model retirement.** The climate application was validated on OpenAI `o4-mini` (medium reasoning effort), which OpenAI retired on 2026-10-23. The benchmark was re-run on four replacement models (see the technical appendix). This is the reason for the rule above: a change of model is a change of instrument and is re-benchmarked. The default model in `dag_coder.py` is `gpt-6.1-terra`; set `--model` or `OPENAI_MODEL` to change it.
 - **Non-determinism.** Reasoning models do not return identical output across calls. Use `--repeats` to measure how stable the output is for a given answer.
-- **Data release.** The benchmark data (60 responses in English and French, two human codings and the model outputs) will be released pending a consent check. Until then, every data file in this repository is synthetic.
+- **Data.** The benchmark data (60 responses in English and French, two human codings and the model outputs) are not released. Every data file in this repository is synthetic; to validate the coder, annotate a benchmark sample of your own corpus with `annotation_app/` and run `src/agreement.py`.
 
 ## Origin
 
@@ -99,4 +99,4 @@ The pipeline was built for the Climate Change Narratives project (Guido, Fares, 
 
 ## License
 
-TODO: to be confirmed by the authors (MIT proposed). See `LICENSE`.
+MIT. See `LICENSE`.
