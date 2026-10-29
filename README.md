@@ -90,7 +90,6 @@ python src/agreement.py \
 ## Reproducibility notes
 
 - **Versioned coding.** Every output record stores `coding_version`, a hash of the filled system prompt (template + taxonomy) and the model name, as well as the model and the reasoning effort. Results produced under different instruments cannot be mixed by accident.
-- **Model retirement.** The climate application was validated on OpenAI `o4-mini` (medium reasoning effort), which OpenAI retired on 2026-10-23. The benchmark was re-run on four replacement models (see the technical appendix). This is the reason for the rule above: a change of model is a change of instrument and is re-benchmarked. The default model in `dag_coder.py` is `gpt-6.1-terra`; set `--model` or `OPENAI_MODEL` to change it.
 - **Non-determinism.** Reasoning models do not return identical output across calls. Use `--repeats` to measure how stable the output is for a given answer.
 - **Data.** The benchmark data (60 responses in English and French, two human codings and the model outputs) are not released. Every data file in this repository is synthetic; to validate the coder, annotate a benchmark sample of your own corpus with `annotation_app/` and run `src/agreement.py`.
 
