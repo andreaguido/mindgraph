@@ -1,0 +1,164 @@
+[
+  {
+    "participant_code": "T01",
+    "narrative": "In my view, good people leave this team mainly because they burn out. We have been understaffed for a year, so everyone carries extra work and stays late, and after a few months of that they are exhausted. Promotions are also rare and we managers seldom give feedback, so they see no future here. HR keeps saying it is all about salaries, but I don't think pay is the issue.",
+    "analysis": {
+      "nodes": [
+        {
+          "id": 2
+        },
+        {
+          "id": 3
+        },
+        {
+          "id": 4
+        },
+        {
+          "id": 7
+        },
+        {
+          "id": 8
+        },
+        {
+          "id": 999
+        }
+      ],
+      "edges": [
+        {
+          "source": 3,
+          "target": 2
+        },
+        {
+          "source": 2,
+          "target": 4
+        },
+        {
+          "source": 4,
+          "target": 999
+        },
+        {
+          "source": 8,
+          "target": 999
+        },
+        {
+          "source": 7,
+          "target": 999
+        }
+      ]
+    },
+    "coding_version": "synthetic",
+    "model": "synthetic-demo"
+  },
+  {
+    "participant_code": "T02",
+    "narrative": "Honestly it is the money. Competitors pay twenty percent more and they keep calling our engineers.",
+    "analysis": {
+      "nodes": [
+        {
+          "id": 1
+        },
+        {
+          "id": 11
+        },
+        {
+          "id": 999
+        }
+      ],
+      "edges": [
+        {
+          "source": 1,
+          "target": 999
+        },
+        {
+          "source": 11,
+          "target": 999
+        }
+      ]
+    },
+    "coding_version": "synthetic",
+    "model": "synthetic-demo"
+  },
+  {
+    "participant_code": "T03",
+    "narrative": "Since the merger nobody knows whether their job will exist next year, and that fear makes people look elsewhere.",
+    "analysis": {
+      "nodes": [
+        {
+          "id": 9
+        },
+        {
+          "id": 999
+        }
+      ],
+      "edges": [
+        {
+          "source": 9,
+          "target": 999
+        }
+      ]
+    },
+    "coding_version": "synthetic",
+    "model": "synthetic-demo"
+  },
+  {
+    "participant_code": "T04",
+    "narrative": "Our new director never listens and the atmosphere in the team has become toxic. People quit because of him.",
+    "analysis": {
+      "nodes": [
+        {
+          "id": 6
+        },
+        {
+          "id": 10
+        },
+        {
+          "id": 999
+        }
+      ],
+      "edges": [
+        {
+          "source": 6,
+          "target": 10
+        },
+        {
+          "source": 10,
+          "target": 999
+        }
+      ]
+    },
+    "coding_version": "synthetic",
+    "model": "synthetic-demo"
+  },
+  {
+    "participant_code": "T05",
+    "narrative": "No remote work, long commutes and rigid hours. Parents in particular cannot make it work.",
+    "analysis": {
+      "nodes": [
+        {
+          "id": 5
+        },
+        {
+          "id": 999
+        }
+      ],
+      "edges": [
+        {
+          "source": 5,
+          "target": 999
+        }
+      ]
+    },
+    "coding_version": "synthetic",
+    "model": "synthetic-demo"
+  },
+  {
+    "participant_code": "T06",
+    "narrative": "People come and go, that is how it is in this sector.",
+    "analysis": {
+      "nodes": [],
+      "edges": []
+    },
+    "coding_version": "synthetic",
+    "model": "synthetic-demo"
+  }
+]

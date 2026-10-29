@@ -1,0 +1,144 @@
+TAXONOMY OF CLIMATE POLICY NARRATIVES
+
+==================================================
+CODING STRUCTURE
+==================================================
+
+Each response receives:
+  A1  Restrict / Regulate          (0 or 1)
+  A2  Price / Incentivize          (0 or 1)
+  A3  Invest / Build               (0 or 1)
+  A4  Inform / Educate             (0 or 1)
+  A5  Adapt / Protect              (0 or 1)
+  A6  International / Coordinate   (0 or 1)
+  A7  Skeptical / No action        (0 or 1)
+
+==================================================
+SECTION 1 — POLICY LOGIC CODES
+==================================================
+
+──────────────────────────────────────────────────
+A1  RESTRICT / REGULATE
+──────────────────────────────────────────────────
+Mechanism: legal compulsion or prohibition imposed on actors.
+
+Signal words: ban, restrict, make illegal, enforce, fine, penalise,
+hold accountable, standards, limits, mandatory, quota, prohibit,
+oblige, sanction, strictly control, require, obligation.
+
+Examples:
+· "Factories must treat waste before discharge"
+· "Heavy fines for illegal logging"
+· "Mandatory emission quotas for polluting industries"
+· "Limit the number of flights per person per year"
+· "Oblige companies to use only renewable energy"
+
+──────────────────────────────────────────────────
+A2  PRICE / INCENTIVIZE
+──────────────────────────────────────────────────
+Mechanism: price signal; government steers private behaviour via cost.
+Includes taxes on harmful activities, subsidies or rebates for clean
+alternatives, and removal of fossil fuel support.
+
+Signal words: carbon tax, tax, subsidise, rebate, incentive, make
+cheaper, make more expensive, remove subsidies, eco-malus, duty,
+tariff, financial reward, free public transport (as incentive),
+tax credits, penalise financially.
+
+Examples:
+· "Implement a carbon tax"
+· "Subsidies and rebates for electric vehicles"
+· "Make train travel cheaper than flying"
+· "Remove fossil fuel subsidies"
+· "Tax polluting companies much more heavily"
+· "Financial incentives for households to install solar panels"
+
+──────────────────────────────────────────────────
+A3  INVEST / BUILD
+──────────────────────────────────────────────────
+Mechanism: government as direct provider or funder of a public good,
+infrastructure, service, or natural capital.
+
+Signal words: invest in, build, fund, plant trees, deploy, develop,
+create, expand, construct, nationalise, public spending, R&D,
+research funding, provide, establish, set up.
+
+Examples:
+· "Invest in renewable energy infrastructure"
+· "Build more public transport"
+· "Plant trees and restore forests"
+· "Fund R&D for clean technology"
+· "Develop green energy projects"
+· "Establish more waste recycling facilities"
+
+──────────────────────────────────────────────────
+A4  INFORM / EDUCATE
+──────────────────────────────────────────────────
+Mechanism: information and communication as the primary lever.
+Includes awareness campaigns, formal education, and public knowledge
+production.
+
+Signal words: educate, raise awareness, awareness campaign, teach in
+schools, public communication, sensitise, inform citizens, research
+for public use, declare a crisis (as communication act).
+
+Examples:
+· "Run awareness campaigns in schools and public spaces"
+· "Teach climate change in school curricula from primary level"
+· "Declare climate change a public health crisis"
+· "Disseminate information widely through multiple channels"
+· "Raise public awareness about climate change"
+· "Sensibiliser le public"
+· "Nâng cao y thuc cong dong"
+
+──────────────────────────────────────────────────
+A5  ADAPT / PROTECT
+──────────────────────────────────────────────────
+Mechanism: reducing vulnerability to climate impacts already occurring
+or projected. Coping rather than preventing.
+
+Signal words: sea walls, flood protection, drought resilience, heat
+resilience, relocate communities, climate-proof infrastructure, early
+warning systems, prepare for extreme weather, coastal protection.
+
+Examples:
+· "Build sea walls and flood defences for coastal cities"
+· "Develop drought-resistant crops"
+· "Climate-proof new buildings against rising temperatures and flooding"
+· "Invest in early warning systems for extreme weather events"
+
+──────────────────────────────────────────────────
+A6  INTERNATIONAL / COORDINATE
+──────────────────────────────────────────────────
+Mechanism: supranational action or coordination as a necessary
+component of the government's response. The respondent proposes that
+the relevant unit of action is international — through treaties,
+multilateral institutions, or pressure on other countries.
+
+Signal words: international agreement, global cooperation, UN, COP,
+all countries must act, lead by example, pressure other countries,
+multilateral, bilateral, diplomatic, other countries too.
+
+Examples:
+· "All countries need to act together through a UN agreement"
+· "We should lead by example so other nations follow"
+· "Support and strengthen COP commitments"
+· "Pressure China and the US to reduce emissions"
+· "What's the point if other countries don't act too"
+
+──────────────────────────────────────────────────
+A7  SKEPTICAL / NO ACTION
+──────────────────────────────────────────────────
+Respondent does not think government should act on climate change —
+because it is natural, a hoax, already too late, or because markets
+or technology will resolve it without government intervention.
+
+Signal words: natural cycle, hoax, nothing we can do, technology will
+solve it, damage is done, government shouldn't interfere, bigger
+priorities, markets will fix it.
+
+Examples:
+· "Climate change is a natural cycle; government shouldn't intervene"
+· "The damage is already done"
+· "Technology from private firms will solve this; no need for government"
+· "People aren't ready to change their comfort"

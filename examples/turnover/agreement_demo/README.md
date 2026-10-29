@@ -1,0 +1,1 @@
+All files in this folder are SYNTHETIC: invented answers (../responses.csv) and invented codings by two hypothetical coders (coder_A.csv, coder_B.csv) and a hypothetical model run (model.json). They exist only to show the input formats and to let src/agreement.py run end to end. They are not benchmark data and say nothing about the instrument's validity.

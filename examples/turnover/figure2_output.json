@@ -1,0 +1,20 @@
+{
+  "_note": "Transcribed from Figure 2 of the Stage-1 proposal (response T01 / response.txt). Coded by prompts/generic_cause_agent.md with taxonomies/turnover_taxonomy_illustrative.txt, outcome 'employee turnover', gpt-6.1-terra, three independent calls on 2026-10-27. Calls 1-2 returned the DAG below; call 3 returned 7->8 instead of 7->999. The text and the taxonomy are illustrative and unvalidated.",
+  "analysis": {
+    "nodes": [
+      {"id": 3, "label": "Staffing Shortages"},
+      {"id": 2, "label": "Workload & Working Hours"},
+      {"id": 4, "label": "Burnout & Job Stress"},
+      {"id": 8, "label": "Career Development & Promotion Opportunities"},
+      {"id": 7, "label": "Recognition & Feedback"},
+      {"id": 999, "label": "employee turnover"}
+    ],
+    "edges": [
+      {"source": 3, "target": 2},
+      {"source": 2, "target": 4},
+      {"source": 4, "target": 999},
+      {"source": 8, "target": 999},
+      {"source": 7, "target": 999}
+    ]
+  }
+}

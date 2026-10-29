@@ -1,0 +1,123 @@
+TAXONOMY OF CAUSES OF CLIMATE CHANGE (IDs are important)
+Note: the source document defines factors #1–#22 and #24–#26; there is no factor #23.
+
+Level: Natural Causes
+Definition: Narratives that attribute climate change to naturally occurring phenomena related to long-term Earth system dynamics that take place independently of human influence.
+
+#1 Climate Cycles
+This category attributes climate change to long-term, naturally occurring climate fluctuations, like glacial and interglacial periods, that are part of Earth's natural rhythm and not driven by human activity.
+Example: “The climate has always changed naturally throughout history.”
+
+#2 Solar Activity & Orbital Changes
+This category attributes climate change to variations in solar radiation and Earth's orbital patterns, such as those explained by Milankovitch cycles.
+Examples: “The Sun’s cycles and variations in solar radiation are the primary drivers of climate fluctuations.” / “Milankovitch cycles—changes in Earth's orbit—naturally influence global temperatures over thousands of years.”
+
+#3 Volcanic Activity
+This category highlights the role of volcanic eruptions in releasing large amounts of greenhouse gases and aerosols into the atmosphere, thus cooling or warming the climate over both short and long time frames.
+Examples: “Volcanic eruptions release large amounts of CO₂ and aerosols, affecting global temperatures.” / “Past climate changes were driven by major volcanic events, not human activity.”
+
+#4 Ocean Cycles
+This category focuses on shifts in major ocean currents and naturally occurring oceanic phenomena like El Niño and La Niña, which redistribute heat globally and can significantly influence climate variability.
+Examples: “El Niño and La Niña significantly alter weather patterns and global temperatures.” / “The slowing of the Atlantic Meridional Overturning Circulation (AMOC) is a key driver of regional climate shifts.”
+
+#5 Geological & Plate Tectonic Movements
+This category views climate change as a long-term consequence of geological processes such as continental drift and plate tectonics, that can alter ocean currents and atmospheric circulation patterns over millions of years.
+Example: “Continental drift and tectonic shifts alter ocean currents and atmospheric circulation over millions of years.”
+
+Level: Human-caused (I) — Structural and Systematic Factors
+Definition: Narratives that attribute climate change to systemic processes rooted in our development as a society, which encompass large-scale human activity and are often beyond individual control.
+
+#6 Greenhouse Gases
+This category acknowledges the role of greenhouse gases — such as carbon dioxide (CO₂), methane (CH₄), and nitrous oxide (N₂O) — in driving climate change, attributing their increase to human activities that creates atmospheric pollution, intensifying the greenhouse effect and contributing directly to global warming.
+In other words, this category refers to when people talk about ozone, gases accumulated in the air, gases that trap heat, and pollution in the air.
+It does not include *general* pollution (e.g., when people just say "pollution").
+Examples: “Increasing greenhouses gases are warming the planet.” / “Human activities have caused greenhouse gas concentrations to reach levels unseen in millions of years.”
+
+#7 Overproduction & Unsustainable Output Pressure
+This category refers to systemic industrial and economic practices based on maximising profit and output, thus based on a large-scale overproduction of goods and services — surpassing both social and ecological needs, typically embedded in global supply and shipping chains and influenced by market pressures beyond individual control.
+It includes the extensive use of goods and services based on digital technologies (e.g., data centers).
+Examples: “Emissions have been, and continue to be, driven by economic growth; yet stabilisation of greenhouse gas concentration in the atmosphere is feasible and consistent with continued growth.” / “The Industrial Revolution marked the beginning of rapid CO₂ accumulation in the atmosphere.”
+
+#8 Energy Production & Fossil Fuel Dependency
+This category refers specifically to large-scale energy production and extraction systems (e.g., oil drilling, coal mining, power plants, refineries, national energy grids) as structural drivers of climate change.
+It highlights how modern infrastructure and energy systems - especially power plants, refineries - are pivotal contributors to climate change.
+It excludes end-use fossil fuel consumption by individuals or sectors, which should be coded under sector- or behavior-specific categories.
+Examples: “Burning fossil fuels releases CO2, the primary driver of global warming.” / “Fossil fuels (coal, oil, gas) combustion has increased CO₂ concentrations, leading to global warming.”
+
+#9 Industries and Industrial Processes
+This category refers to the activity of industries (including the use of machineries, and factories) and their emissions and waste from chemical and manufacturing processes, such as the production of cement, steel, fertilizers, and refrigerants, which release significant amounts of CO₂ and other greenhouse gases.
+Examples: “Industrial pollution is worsening the air quality and accelerating climate change.” / “Industrial fertilizer production is an overlooked contributor to climate change, emitting greenhouse gases.”
+
+#10 Overexploitation of Ecosystems & Land Use Changes
+This category refers to the large-scale transformation and degradation of natural ecosystems — including deforestation, wetland drainage, grassland conversion, intensive mining, and marine exploitation — which reduce carbon sinks and disrupt climate regulation.
+It includes also raw materials used by industries and factories.
+Examples: “Cutting down trees reduces the planet’s ability to absorb CO₂, accelerating climate change.” / “Urbanization replaces natural carbon sinks with heat-absorbing concrete and asphalt.”
+
+#11 Agriculture & Livestock Farming
+This category encompasses emissions-heavy processes from intensive agricultural and farming activities. It includes methane from animal digestion and manure, nitrous oxide from fertilizers, and carbon emissions from land conversion for crops and grazing. It includes also the use of pesticides.
+Examples: “Intensive livestock farming is a major source of methane, a powerful greenhouse gas.” / “Methane emissions from agriculture and livestock are contributing to rising temperatures.”
+
+#12 Military Emissions & Warfare
+This category includes the heavy environmental footprint of military training, operations, infrastructure, and conflict-related destruction, which often remain unregulated or unaccounted for in international climate agreements.
+Examples: “Modern warfare and military operations are among the largest institutional polluters.” / “Military carbon footprints are exempt from climate treaties, masking their true impact.”
+
+Level: Human-caused (II) — Personal/cumulative factors
+Definition: Narratives that focus on the cumulative impact (personal responsibility) of individual behaviors, lifestyle preferences, and everyday consumption patterns.
+
+#13 Unsustainable Consumerism & Overconsumption
+This category includes the demand for consumer goods — such as clothing, electronics, packaging, single use plastic, and household items — that require resource-intensive production and distribution and shipping processes. These consumption patterns are reinforced by non durable goods, fast fashion, planned obsolescence, digital culture, and a globalized supply chain, all contributing to high emissions and waste.
+Examples: “Mass production and short-lived consumer goods increase emissions and waste.” / “Fast fashion and global supply chains contribute to a massive carbon footprint.”
+
+#14 Dietary Choices
+This category includes the consumption of food products — particularly meat, dairy, and imported goods — that have a disproportionately high carbon footprint due to land use, water consumption, and methane or nitrous oxide emissions. It also encompasses the broader food system’s role in resource depletion and emissions through processing, refrigeration, and transportation.
+Examples: “High meat and dairy consumption increases greenhouse gas emissions.” / “Reducing animal products in our diets is essential to cut carbon emissions.”
+
+#15 Household Energy Choices
+This category refers to personal consumption behaviors and domestic choices that lead to increased energy use and carbon emissions. Examples include the use of gas heating systems, poorly insulated homes, high electricity consumption, and inefficient appliances.
+Examples: “Heating and cooling homes consumes a lot of energy and emits CO₂.” / “Inefficient appliances and poor insulation increase household emissions.”
+
+#16 Transportation Choices
+This category focuses on individuals’ transportation preferences, including reliance on private vehicles, non-electric car purchases and use, and frequent flying, which contribute significantly to global CO₂ emissions alongside personal travel choices, particularly in car-dependent and globalized societies.
+Examples: “Our dependence on cars instead of public transport is worsening urban pollution and emissions.” / “Cars and trucks burning gasoline and diesel fuel contribute significantly to air pollution and CO₂ emissions.”
+
+#17 Waste Production & Management
+This category addresses how individuals generate and handle waste—particularly organic and plastic waste. Behaviors such as excessive food waste, limited recycling, and reliance on landfill-bound packaging contribute to methane emissions and pollution.
+Examples: “Decomposing organic waste in landfills releases methane into the atmosphere.” / “Plastic production and disposal contribute to both CO₂ emissions and ocean pollution.”
+
+Level: Political and Institutional Responsibility
+Definition: Narratives that emphasise the responsibility of governments, political actors, and institutions for enabling or failing to address climate change through policy, regulation, and infrastructure choices.
+
+#18 Governmental Inaction in Climate Regulations
+This category refers to the lack of strong, enforceable environmental policies and the failure to implement international agreements (or recommendations). It highlights the perceived inability or unwillingness of governments to act decisively due to political short-termism, competing priorities, or bureaucratic inertia.
+Examples: “Governments fail to enforce strong environmental laws, allowing pollution to continue.” / “International climate agreements are not legally binding, making them ineffective.”
+
+#19 Lack of low-Impact Transportation Systems
+This category includes the absence or insufficiency of investments in infrastructure for sustainable transport, such as public transit, bike lanes, and pedestrian-friendly planning. It reflects the role of urban planning and public investment decisions in locking societies into carbon-intensive mobility patterns.
+Examples: “Governments need to invest in public transport, bike lanes, and pedestrian infrastructure.” / “Sustainable transport options are often inaccessible or underfunded.”
+
+#20 Corporate Influence & Lobbying
+This category addresses the role of large corporations as both major emitters and powerful political actors. Through lobbying, financial influence, and strategic communication, these corporations prioritize profits over climate action, shaping policies and delaying regulation.
+Examples: “Large corporations are the biggest contributors to climate change.” / “Greenwashing is constantly used by corporations to appear eco-friendly while continuing harmful practices.”
+
+#21 Economic Growth
+This category frames climate change as a consequence of the capitalistic model of endless economic growth driven by globalization, new technologies and industrialization, which prioritizes GDP and industrial expansion over ecological sustainability and the well-being of all living beings, humans included. This category also includes population growth. 
+Examples: “Infinite economic growth is incompatible with a finite planet.” / “We need to rethink growth-oriented models that harm the environment.”
+
+#22 Inequality & Environmental Injustice
+This category highlights the unequal contributions to and impacts of climate change across social and geographic lines, emphasizing how the wealthiest individuals and countries are the largest emitters, while the poorest — often in the Global South — face the most severe consequences. It also reflects how the individuals that are less directly affected by climate disruptions may remain disengaged or unaware of their role, reinforcing global disparities in awareness, responsibility, and vulnerability.
+Examples: “A handful of billionaires and celebrities emit more CO₂ in a year than thousands of average citizens combined.” / “The richest 1% are responsible for more emissions than the poorest 50%.”
+
+Level: Skepticism, Misinformation & Alternative Theories
+Definition: Narratives challenging the scientific consensus, for which the developing context of climate change is exaggerated, manipulated, or politically motivated.
+
+#24 Scientific Weaponization
+This category includes conspiracy theories suggesting that scientific knowledge and technologies are manipulated to serve political, military, or corporate interests. It frames climate change not as a natural or anthropogenic process, but as a fabricated or engineered phenomenon.
+Examples: “Weather modification technologies (e.g., HAARP, chemtrails) are being used to engineer climate events for political purposes.” / “Natural disasters are being faked or intensified to justify public policies agendas.”
+
+#25 Government Control
+This category reflects a narrative in which climate change is portrayed as a pretext for increased government surveillance, regulation, and control over individual freedoms. It encompasses fears that environmental policies serve authoritarian agendas, including the imposition of degrowth strategies or population control through anti-natalist measures.
+Examples: “Climate change is a Trojan horse for a global government under the UN or World Economic Forum.” / “Climate change is a hoax designed to increase government control over personal freedoms.”
+
+#26 Data Manipulation & Media Complicity
+This category reflects beliefs that scientific data is selectively presented, misinterpreted, or falsified, and that media outlets are complicit in spreading misleading or politically motivated information. It suggests that public understanding of climate change is distorted by sensationalism, bias, and/or censorship.
+Examples: “The media either overhypes or underreports climate change, leading to confusion.” / “Sensationalism dominates over factual reporting.”

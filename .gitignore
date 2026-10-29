@@ -1,0 +1,20 @@
+# secrets
+.openai_api_key
+.env
+*.key
+
+# run outputs
+outputs/
+annotation_app/outputs/
+
+# Python / R
+__pycache__/
+*.pyc
+.Rhistory
+.RData
+.Rproj.user/
+
+# OS / Drive
+desktop.ini
+.DS_Store
+Thumbs.db

@@ -1,0 +1,55 @@
+TAXONOMY OF CAUSES OF EMPLOYEE TURNOVER (IDs are important) — ILLUSTRATIVE, NOT VALIDATED
+Built for the example figure of the OrgSci proposal; it has not been piloted or benchmarked against human coders.
+
+Level: Job and Working Conditions
+Definition: Narratives that attribute turnover to features of the job itself and to the conditions under which it is performed.
+
+#1 Pay & Benefits
+Turnover attributed to salaries, bonuses or benefits that are low or below what other employers offer.
+Example: "People leave because they are underpaid."
+
+#2 Workload & Working Hours
+Turnover attributed to excessive workload, long hours, overtime or work intensity.
+Example: "Everyone is working sixty-hour weeks."
+
+#3 Staffing Shortages
+Turnover attributed to the unit being understaffed: unfilled positions, hiring freezes, too few people for the work.
+Example: "We have had three vacancies for months."
+
+#4 Burnout & Job Stress
+Turnover attributed to exhaustion, burnout, chronic stress or strain experienced by employees.
+Example: "People are simply exhausted."
+
+#5 Work–Life Balance & Flexibility
+Turnover attributed to the lack of flexible hours, remote work, or the conflict between work and private life.
+Example: "We do not allow remote work, so parents leave."
+
+Level: Management and Organization
+Definition: Narratives that attribute turnover to how employees are managed and to features of the organization.
+
+#6 Leadership & Supervision Quality
+Turnover attributed to poor managers or supervisors: lack of support, unfair treatment, poor communication by the direct manager.
+Example: "People don't leave companies, they leave bad bosses."
+
+#7 Recognition & Feedback
+Turnover attributed to the lack of recognition, appreciation or performance feedback.
+Example: "Nobody ever tells them they did a good job."
+
+#8 Career Development & Promotion Opportunities
+Turnover attributed to limited promotion prospects, training, or career paths.
+Example: "There is no way up here."
+
+#9 Restructuring & Job Insecurity
+Turnover attributed to reorganizations, layoffs, mergers, or fear of losing the job.
+Example: "Since the merger everyone fears for their job."
+
+#10 Team Climate & Organizational Culture
+Turnover attributed to conflict among colleagues, a toxic or unwelcoming culture, or poor fit with organizational values.
+Example: "The atmosphere in the team is poisonous."
+
+Level: External Factors
+Definition: Narratives that attribute turnover to conditions outside the organization.
+
+#11 Outside Job Opportunities
+Turnover attributed to a tight labour market, competitors poaching staff, or attractive offers elsewhere.
+Example: "Competitors keep hiring our best engineers."
