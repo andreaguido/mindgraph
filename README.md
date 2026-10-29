@@ -31,6 +31,7 @@ text corpus ──> 1 taxonomy ──> 2 LLM coder ──> 3 validation ──> 
 | `taxonomies/climate_policy_taxonomy.txt` | Policy taxonomy A1–A7 |
 | `taxonomies/turnover_taxonomy_illustrative.txt` | Illustrative 11-factor taxonomy of employee turnover (**not validated**) |
 | `annotation_app/` | R Shiny app for human coding (configured for the climate taxonomy) |
+| `docs/technical_appendix.pdf` | Technical appendix to the Stage-1 proposal: pipeline, taxonomies, prompts, validation design, benchmark results, failure modes |
 | `examples/turnover/` | Stylized manager's answer (Figure 2 of the proposal), five further invented answers, and a synthetic agreement demo |
 
 ## Install
