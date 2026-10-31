@@ -6,11 +6,10 @@ metrics are unchanged; only path handling was adapted (relative paths resolve
 against the current working directory; the run log is written next to the
 output folder).
 
-Compares cause-narrative edges and policy annotations (A1-A7 binary multi-label
-scheme) across the model ("GPT"), H1, and H2 on a common benchmark sample. All
-pairs are restricted to the same set of participants (those present in all
-three sources) to avoid sample-selection bias. Cause args and policy args are
-each optional, but at least one set must be supplied.
+Compares cause-narrative edges and nodes across the model ("GPT"), H1, and H2
+on a common benchmark sample. All pairs are restricted to the same set of
+participants (those present in all three sources) to avoid sample-selection
+bias.
 
 Inputs: the model JSON is the output of src/dag_coder.py (a list of
 {participant_code, narrative, analysis: {nodes, edges}}); human cause CSVs are
@@ -33,12 +32,11 @@ import datetime
 import json
 from collections import defaultdict
 from pathlib import Path
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Dict, List, Set, Tuple
 
 # ── Types ──────────────────────────────────────────────────────────────────────
 Edge    = Tuple[str, str]
 EdgeMap = Dict[str, Set[Edge]]   # participant → set of (source, target)
-PolMap  = Dict[str, Dict[str, Set[str]]]  # participant → {dim → set of labels}
 
 
 # ── Metrics ────────────────────────────────────────────────────────────────────
@@ -106,40 +104,6 @@ def load_gpt_cause_json(path: Path) -> EdgeMap:
                 if src and tgt:
                     edges[pid].add((src, tgt))
     return edges
-
-
-def load_policy_csv(path: Path) -> PolMap:
-    """Human policy annotation CSV (A1-A7 binary columns) → {participant: {code → {code} or set()}}."""
-    result: PolMap = {}
-    with path.open(encoding="utf-8", newline="") as f:
-        for row in csv.DictReader(f, delimiter=";"):
-            pid = (row.get("participant_code") or "").strip()
-            if not pid:
-                continue
-            result[pid] = {
-                code: ({code} if (row.get(code) or "").strip() == "1" else set())
-                for code in _POL_CODES
-            }
-    return result
-
-
-def load_gpt_policy_json(path: Path) -> PolMap:
-    """GPT policy_analyses.json (A1-A7 binary fields) → {participant: {code → {code} or set()}}."""
-    data    = json.loads(path.read_text(encoding="utf-8"))
-    results = data if isinstance(data, list) else data.get("results", [])
-    result: PolMap = {}
-    for item in results:
-        pid = (item.get("participant_code") or "").strip()
-        if not pid:
-            continue
-        a = item.get("analysis") or {}
-        if isinstance(a, list):  # defensive: agent prompt's documented format wraps in an array
-            a = a[0] if a else {}
-        result[pid] = {
-            code: ({code} if str(a.get(code, 0)).strip() == "1" else set())
-            for code in _POL_CODES
-        }
-    return result
 
 
 # ── Agreement: cause ───────────────────────────────────────────────────────────
@@ -299,121 +263,6 @@ def fleiss_kappa_node(ea: EdgeMap, eb: EdgeMap, ec: EdgeMap, participants: List[
     }
 
 
-# ── Agreement: policy ──────────────────────────────────────────────────────────
-# A1-A7 binary multi-label scheme (promoted 2026-06-22), replacing the old
-# objective/target/instrument/sector/coherence categorical scheme.
-_POL_CODES = ["A1", "A2", "A3", "A4", "A5", "A6", "A7"]
-_POL_UNIVERSE = {code: {code} for code in _POL_CODES}
-
-
-def policy_pair_dim(pa: PolMap, pb: PolMap, participants: List[str], dim: str) -> dict:
-    n11 = n10 = n01 = n00 = 0
-    universe = _POL_UNIVERSE[dim]
-    for pid in participants:
-        sa = pa.get(pid, {}).get(dim, set())
-        sb = pb.get(pid, {}).get(dim, set())
-        for label in universe:
-            in_a, in_b = label in sa, label in sb
-            if in_a and in_b:   n11 += 1
-            elif in_a:          n10 += 1
-            elif in_b:          n01 += 1
-            else:               n00 += 1
-    return _metrics(n11, n10, n01, n00)
-
-
-def fleiss_kappa_policy_dim(pa: PolMap, pb: PolMap, pc: PolMap,
-                             participants: List[str], dim: str) -> dict:
-    """Fleiss' kappa for 3 raters on policy dimension `dim`, fixed label universe."""
-    k = 3
-    N = 0
-    P_bar_sum = 0.0
-    n1_total = 0
-    universe = _POL_UNIVERSE[dim]
-
-    for pid in participants:
-        sa = pa.get(pid, {}).get(dim, set())
-        sb = pb.get(pid, {}).get(dim, set())
-        sc = pc.get(pid, {}).get(dim, set())
-        for label in universe:
-            n1 = int(label in sa) + int(label in sb) + int(label in sc)
-            n0 = k - n1
-            P_bar_sum += (n1 * (n1 - 1) + n0 * (n0 - 1)) / (k * (k - 1))
-            n1_total += n1
-            N += 1
-
-    if N == 0:
-        return {"dimension": dim, "n_raters": k, "n_participants": len(participants),
-                "N_items": 0, "P_bar": 0.0, "P_e_bar": 0.0, "fleiss_kappa": 0.0}
-
-    P_bar = P_bar_sum / N
-    p1    = n1_total / (N * k)
-    P_e   = p1 ** 2 + (1 - p1) ** 2
-    kappa = _safe(P_bar - P_e, 1 - P_e) if P_e != 1 else 0.0
-
-    return {
-        "dimension":      dim,
-        "n_raters":       k,
-        "n_participants": len(participants),
-        "N_items":        N,
-        "P_bar":          round(P_bar, 4),
-        "P_e_bar":        round(P_e,   4),
-        "fleiss_kappa":   round(kappa, 4),
-    }
-
-
-def policy_pair_all(pa: PolMap, pb: PolMap, participants: List[str]) -> dict:
-    """Pairwise agreement pooled across all A1-A7 codes (one binary item per code per participant)."""
-    n11 = n10 = n01 = n00 = 0
-    for pid in participants:
-        for code in _POL_CODES:
-            sa = pa.get(pid, {}).get(code, set())
-            sb = pb.get(pid, {}).get(code, set())
-            in_a, in_b = code in sa, code in sb
-            if in_a and in_b:   n11 += 1
-            elif in_a:          n10 += 1
-            elif in_b:          n01 += 1
-            else:               n00 += 1
-    return _metrics(n11, n10, n01, n00)
-
-
-def fleiss_kappa_policy_all(pa: PolMap, pb: PolMap, pc: PolMap, participants: List[str]) -> dict:
-    """Fleiss' kappa for 3 raters pooled across all A1-A7 codes."""
-    k = 3
-    N = 0
-    P_bar_sum = 0.0
-    n1_total = 0
-
-    for pid in participants:
-        for code in _POL_CODES:
-            sa = pa.get(pid, {}).get(code, set())
-            sb = pb.get(pid, {}).get(code, set())
-            sc = pc.get(pid, {}).get(code, set())
-            n1 = int(code in sa) + int(code in sb) + int(code in sc)
-            n0 = k - n1
-            P_bar_sum += (n1 * (n1 - 1) + n0 * (n0 - 1)) / (k * (k - 1))
-            n1_total += n1
-            N += 1
-
-    if N == 0:
-        return {"dimension": "ALL", "n_raters": k, "n_participants": len(participants),
-                "N_items": 0, "P_bar": 0.0, "P_e_bar": 0.0, "fleiss_kappa": 0.0}
-
-    P_bar = P_bar_sum / N
-    p1    = n1_total / (N * k)
-    P_e   = p1 ** 2 + (1 - p1) ** 2
-    kappa = _safe(P_bar - P_e, 1 - P_e) if P_e != 1 else 0.0
-
-    return {
-        "dimension":      "ALL",
-        "n_raters":       k,
-        "n_participants": len(participants),
-        "N_items":        N,
-        "P_bar":          round(P_bar, 4),
-        "P_e_bar":        round(P_e,   4),
-        "fleiss_kappa":   round(kappa, 4),
-    }
-
-
 # ── Output ─────────────────────────────────────────────────────────────────────
 def _write(path: Path, rows: List[dict], fields: List[str]) -> None:
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -451,16 +300,13 @@ def _print_table(title: str, rows: List[dict], cols: List[Tuple[str, int]]) -> N
 def main() -> None:
     today = datetime.date.today().strftime("%Y-%m-%d")
     parser = argparse.ArgumentParser(
-        description="Three-way annotation agreement: GPT vs H1 vs H2 (cause + policy)."
+        description="Three-way annotation agreement on cause DAGs: GPT vs H1 vs H2."
     )
     root = Path.cwd()
 
-    parser.add_argument("--gpt-cause-json",  default=None,   help="GPT narrative_analyses.json (optional)")
-    parser.add_argument("--h1-cause",         default=None,   help="H1 cause edges CSV (optional)")
-    parser.add_argument("--h2-cause",         default=None,   help="H2 cause edges CSV (optional)")
-    parser.add_argument("--gpt-policy-json",  default=None,   help="GPT policy_analyses.json (optional)")
-    parser.add_argument("--h1-policy",        default=None,   help="H1 policy annotations CSV (optional)")
-    parser.add_argument("--h2-policy",        default=None,   help="H2 policy annotations CSV (optional)")
+    parser.add_argument("--gpt-cause-json",  required=True,  help="Model output JSON (src/dag_coder.py)")
+    parser.add_argument("--h1-cause",         required=True,  help="H1 cause edges CSV")
+    parser.add_argument("--h2-cause",         required=True,  help="H2 cause edges CSV")
     parser.add_argument("--h1-label",         default="H1",   help="Label for H1 (default: H1)")
     parser.add_argument("--h2-label",         default="H2",   help="Label for H2 (default: H2)")
     parser.add_argument("--out-dir",          default="outputs/agreement")
@@ -479,172 +325,89 @@ def main() -> None:
     h1, h2  = args.h1_label, args.h2_label
     out_dir = _resolve(args.out_dir, root) / today
 
-    has_cause  = bool(args.gpt_cause_json and args.h1_cause and args.h2_cause)
-    has_policy = bool(args.gpt_policy_json and args.h1_policy and args.h2_policy)
-    if not has_cause and not has_policy:
-        parser.error(
-            "Provide either the cause args (--gpt-cause-json/--h1-cause/--h2-cause) "
-            "or the policy args (--gpt-policy-json/--h1-policy/--h2-policy), or both."
-        )
+    # ── Cause ──────────────────────────────────────────────────────────────────
+    print("Loading cause annotations…")
+    gpt_cause = load_gpt_cause_json(_resolve(args.gpt_cause_json, root))
+    h1_cause  = load_cause_csv(_resolve(args.h1_cause, root))
+    h2_cause  = load_cause_csv(_resolve(args.h2_cause, root))
 
-    cause_3way: List[str] = []
-    policy_3way: List[str] = []
+    cause_3way = sorted(set(gpt_cause) & set(h1_cause) & set(h2_cause))
+    cause_hh   = sorted(set(h1_cause)  & set(h2_cause))
 
-    # ── Cause (optional) ───────────────────────────────────────────────────────
-    if has_cause:
-        print("Loading cause annotations…")
-        gpt_cause = load_gpt_cause_json(_resolve(args.gpt_cause_json, root))
-        h1_cause  = load_cause_csv(_resolve(args.h1_cause, root))
-        h2_cause  = load_cause_csv(_resolve(args.h2_cause, root))
+    excl = len(set(h1_cause) | set(h2_cause)) - len(cause_hh)
+    print(f"  GPT: {len(gpt_cause)} | {h1}: {len(h1_cause)} | {h2}: {len(h2_cause)}")
+    print(f"  Common (3-way): {len(cause_3way)}  |  Human-human: {len(cause_hh)}"
+          + (f"  |  {excl} excluded (not in both humans)" if excl else ""))
 
-        cause_3way = sorted(set(gpt_cause) & set(h1_cause) & set(h2_cause))
-        cause_hh   = sorted(set(h1_cause)  & set(h2_cause))
+    cause_pairs = [
+        (f"GPT vs {h1}", gpt_cause, h1_cause, cause_3way),
+        (f"GPT vs {h2}", gpt_cause, h2_cause, cause_3way),
+        (f"{h1} vs {h2}", h1_cause, h2_cause, cause_hh),
+    ]
 
-        excl = len(set(h1_cause) | set(h2_cause)) - len(cause_hh)
-        print(f"  GPT: {len(gpt_cause)} | {h1}: {len(h1_cause)} | {h2}: {len(h2_cause)}")
-        print(f"  Common (3-way): {len(cause_3way)}  |  Human-human: {len(cause_hh)}"
-              + (f"  |  {excl} excluded (not in both humans)" if excl else ""))
+    cause_summary_rows: List[dict] = []
+    cause_by_response_rows: List[dict] = []
 
-        cause_pairs = [
-            (f"GPT vs {h1}", gpt_cause, h1_cause, cause_3way),
-            (f"GPT vs {h2}", gpt_cause, h2_cause, cause_3way),
-            (f"{h1} vs {h2}", h1_cause, h2_cause, cause_hh),
-        ]
+    for label, ea, eb, pids in cause_pairs:
+        edge_summary, edge_by_resp = cause_pair(ea, eb, pids)
+        node_summary, node_by_resp = node_pair(ea, eb, pids)
+        cause_summary_rows.append({"level": "edge", "pair": label, "n_participants": len(pids), **edge_summary})
+        cause_summary_rows.append({"level": "node", "pair": label, "n_participants": len(pids), **node_summary})
+        for row in edge_by_resp:
+            cause_by_response_rows.append({"level": "edge", "pair": label, **row})
+        for row in node_by_resp:
+            cause_by_response_rows.append({"level": "node", "pair": label, **row})
 
-        cause_summary_rows: List[dict] = []
-        cause_by_response_rows: List[dict] = []
+    dispute_rows = cause_disputes(h1_cause, h2_cause, cause_hh)
 
-        for label, ea, eb, pids in cause_pairs:
-            edge_summary, edge_by_resp = cause_pair(ea, eb, pids)
-            node_summary, node_by_resp = node_pair(ea, eb, pids)
-            cause_summary_rows.append({"level": "edge", "pair": label, "n_participants": len(pids), **edge_summary})
-            cause_summary_rows.append({"level": "node", "pair": label, "n_participants": len(pids), **node_summary})
-            for row in edge_by_resp:
-                cause_by_response_rows.append({"level": "edge", "pair": label, **row})
-            for row in node_by_resp:
-                cause_by_response_rows.append({"level": "node", "pair": label, **row})
+    fleiss_edge = {**fleiss_kappa_cause(gpt_cause, h1_cause, h2_cause, cause_3way), "level": "edge"}
+    fleiss_node = {**fleiss_kappa_node(gpt_cause, h1_cause, h2_cause, cause_3way), "level": "node"}
 
-        dispute_rows = cause_disputes(h1_cause, h2_cause, cause_hh)
-
-        fleiss_edge = {**fleiss_kappa_cause(gpt_cause, h1_cause, h2_cause, cause_3way), "level": "edge"}
-        fleiss_node = {**fleiss_kappa_node(gpt_cause, h1_cause, h2_cause, cause_3way), "level": "node"}
-
-        _write(out_dir / "cause_agreement.csv",
-               cause_summary_rows,
-               ["level", "pair", "n_participants"] + METRIC_FIELDS)
-        _write(out_dir / "cause_by_response.csv",
-               cause_by_response_rows,
-               ["level", "pair", "participant_code"] + METRIC_FIELDS)
-        _write(out_dir / "cause_top_disputes.csv",
-               dispute_rows,
-               ["source", "target", "n_seen", "n_disagree", "disagree_rate"])
-        _write(out_dir / "cause_fleiss.csv",
-               [fleiss_edge, fleiss_node],
-               ["level", "n_raters", "n_participants", "N_items", "P_bar", "P_e_bar", "fleiss_kappa"])
-
-    # ── Policy (optional) ──────────────────────────────────────────────────────
-    policy_summary_rows: List[dict] = []
-
-    if has_policy:
-        print("Loading policy annotations…")
-        gpt_policy = load_gpt_policy_json(_resolve(args.gpt_policy_json, root))
-        h1_policy  = load_policy_csv(_resolve(args.h1_policy, root))
-        h2_policy  = load_policy_csv(_resolve(args.h2_policy, root))
-
-        policy_3way = sorted(set(gpt_policy) & set(h1_policy) & set(h2_policy))
-        policy_hh   = sorted(set(h1_policy)  & set(h2_policy))
-
-        print(f"  GPT: {len(gpt_policy)} | {h1}: {len(h1_policy)} | {h2}: {len(h2_policy)}")
-        print(f"  Common (3-way): {len(policy_3way)}  |  Human-human: {len(policy_hh)}")
-
-        policy_pairs = [
-            (f"GPT vs {h1}", gpt_policy, h1_policy, policy_3way),
-            (f"GPT vs {h2}", gpt_policy, h2_policy, policy_3way),
-            (f"{h1} vs {h2}", h1_policy, h2_policy, policy_hh),
-        ]
-
-        for label, pa, pb, pids in policy_pairs:
-            for code in _POL_CODES:
-                m = policy_pair_dim(pa, pb, pids, code)
-                policy_summary_rows.append({
-                    "pair": label, "dimension": code,
-                    "n_participants": len(pids), **m
-                })
-            m_all = policy_pair_all(pa, pb, pids)
-            policy_summary_rows.append({
-                "pair": label, "dimension": "ALL",
-                "n_participants": len(pids), **m_all
-            })
-
-        _write(out_dir / "policy_agreement.csv",
-               policy_summary_rows,
-               ["pair", "dimension", "n_participants"] + METRIC_FIELDS)
-
-        policy_fleiss_rows = [
-            fleiss_kappa_policy_dim(gpt_policy, h1_policy, h2_policy, policy_3way, code)
-            for code in _POL_CODES
-        ]
-        policy_fleiss_rows.append(
-            fleiss_kappa_policy_all(gpt_policy, h1_policy, h2_policy, policy_3way)
-        )
-        _write(out_dir / "policy_fleiss.csv",
-               policy_fleiss_rows,
-               ["dimension", "n_raters", "n_participants", "N_items", "P_bar", "P_e_bar", "fleiss_kappa"])
+    _write(out_dir / "cause_agreement.csv",
+           cause_summary_rows,
+           ["level", "pair", "n_participants"] + METRIC_FIELDS)
+    _write(out_dir / "cause_by_response.csv",
+           cause_by_response_rows,
+           ["level", "pair", "participant_code"] + METRIC_FIELDS)
+    _write(out_dir / "cause_top_disputes.csv",
+           dispute_rows,
+           ["source", "target", "n_seen", "n_disagree", "disagree_rate"])
+    _write(out_dir / "cause_fleiss.csv",
+           [fleiss_edge, fleiss_node],
+           ["level", "n_raters", "n_participants", "N_items", "P_bar", "P_e_bar", "fleiss_kappa"])
 
     # ── Console summary ────────────────────────────────────────────────────────
-    if has_cause:
-        for level in ("edge", "node"):
-            _print_table(
-                f"CAUSE AGREEMENT — {level.upper()}",
-                [{"Pair": r["pair"], "N": r["n_participants"],
-                  "Po": r["Po"], "kappa": r["kappa"], "PPA": r["PPA"], "NPA": r["NPA"]}
-                 for r in cause_summary_rows if r["level"] == level],
-                [("Pair", 20), ("N", 4), ("Po", 6), ("kappa", 6), ("PPA", 6), ("NPA", 6)],
-            )
-        fk_edge, fk_node = fleiss_edge["fleiss_kappa"], fleiss_node["fleiss_kappa"]
-        print(f"\n  Fleiss' kappa (3-way, GPT+{h1}+{h2}):")
-        print(f"    edge: {fk_edge}  [{fleiss_edge['N_items']} binary items]")
-        print(f"    node: {fk_node}  [{fleiss_node['N_items']} binary items]")
-
-    if has_policy:
+    for level in ("edge", "node"):
         _print_table(
-            "POLICY AGREEMENT",
-            [{"Pair": r["pair"], "Dimension": r["dimension"], "N": r["n_participants"],
+            f"CAUSE AGREEMENT — {level.upper()}",
+            [{"Pair": r["pair"], "N": r["n_participants"],
               "Po": r["Po"], "kappa": r["kappa"], "PPA": r["PPA"], "NPA": r["NPA"]}
-             for r in policy_summary_rows],
-            [("Pair", 20), ("Dimension", 12), ("N", 4),
-             ("Po", 6), ("kappa", 6), ("PPA", 6), ("NPA", 6)],
+             for r in cause_summary_rows if r["level"] == level],
+            [("Pair", 20), ("N", 4), ("Po", 6), ("kappa", 6), ("PPA", 6), ("NPA", 6)],
         )
-        print(f"\n  Fleiss' kappa (3-way, GPT+{h1}+{h2}):")
-        for row in policy_fleiss_rows:
-            print(f"    {row['dimension']}: {row['fleiss_kappa']}  [{row['N_items']} items]")
+    fk_edge, fk_node = fleiss_edge["fleiss_kappa"], fleiss_node["fleiss_kappa"]
+    print(f"\n  Fleiss' kappa (3-way, GPT+{h1}+{h2}):")
+    print(f"    edge: {fk_edge}  [{fleiss_edge['N_items']} binary items]")
+    print(f"    node: {fk_node}  [{fleiss_node['N_items']} binary items]")
 
     print(f"\nOutputs written to: {out_dir}")
 
-    log_inputs = {}
-    if has_cause:
-        log_inputs["gpt_cause_json"] = args.gpt_cause_json
-        log_inputs[f"{h1}_cause"]    = args.h1_cause
-        log_inputs[f"{h2}_cause"]    = args.h2_cause
-    if has_policy:
-        log_inputs["gpt_policy_json"] = args.gpt_policy_json
-        log_inputs[f"{h1}_policy"] = args.h1_policy
-        log_inputs[f"{h2}_policy"] = args.h2_policy
+    log_inputs = {
+        "gpt_cause_json": args.gpt_cause_json,
+        f"{h1}_cause":    args.h1_cause,
+        f"{h2}_cause":    args.h2_cause,
+    }
     _append_log(
         out_dir.parent / "run_log.md",
         script="benchmark_agreement",
         inputs=log_inputs,
         output_path=str(out_dir),
-        n_items=len(cause_3way) if has_cause else len(policy_3way),
+        n_items=len(cause_3way),
     )
-    if has_cause:
-        print(f"  cause_agreement.csv      ({len(cause_pairs)} pairs × 2 levels = {len(cause_summary_rows)} rows)")
-        print(f"  cause_by_response.csv    ({len(cause_by_response_rows)} rows)")
-        print(f"  cause_top_disputes.csv   (top {len(dispute_rows)} contested edges, {h1} vs {h2})")
-        print(f"  cause_fleiss.csv         (edge={fk_edge}, node={fk_node})")
-    if has_policy:
-        print(f"  policy_agreement.csv     ({len(policy_summary_rows)} rows)")
-        print(f"  policy_fleiss.csv        ({len(policy_fleiss_rows)} codes)")
+    print(f"  cause_agreement.csv      ({len(cause_pairs)} pairs × 2 levels = {len(cause_summary_rows)} rows)")
+    print(f"  cause_by_response.csv    ({len(cause_by_response_rows)} rows)")
+    print(f"  cause_top_disputes.csv   (top {len(dispute_rows)} contested edges, {h1} vs {h2})")
+    print(f"  cause_fleiss.csv         (edge={fk_edge}, node={fk_node})")
 
 
 if __name__ == "__main__":

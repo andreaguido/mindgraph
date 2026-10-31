@@ -3,7 +3,7 @@ dag_coder.py — code free-text answers into causal DAGs with an LLM.
 
 Derived from narrative_gpt.py (Climate Change Narratives project). The domain
 enters only through two files: a prompt template and a taxonomy. The template
-may contain the placeholders {TAXONOMY_TEXT} (or {POLICY_TEXT}) and {OUTCOME};
+may contain the placeholders {TAXONOMY_TEXT} and {OUTCOME};
 they are filled with str.replace, never str.format, because the prompts contain
 literal braces in their JSON examples.
 
@@ -44,7 +44,7 @@ RETRY_MAX_OUTPUT_TOKENS = int(os.getenv("OPENAI_RETRY_MAX_OUTPUT_TOKENS", "10000
 def build_system_prompt(prompt_path: Path, taxonomy_path: Path, outcome: str | None) -> str:
     template = prompt_path.read_text(encoding="utf-8")
     taxonomy = taxonomy_path.read_text(encoding="utf-8")
-    prompt = template.replace("{TAXONOMY_TEXT}", taxonomy).replace("{POLICY_TEXT}", taxonomy)
+    prompt = template.replace("{TAXONOMY_TEXT}", taxonomy)
     if "{OUTCOME}" in prompt:
         if not outcome:
             raise SystemExit("This prompt contains {OUTCOME}: pass --outcome.")

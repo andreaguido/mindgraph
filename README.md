@@ -23,15 +23,13 @@ text corpus ──> 1 taxonomy ──> 2 LLM coder ──> 3 validation ──> 
 | Path | What |
 |---|---|
 | `src/dag_coder.py` | LLM coder: one answer or a CSV, sequential or OpenAI Batch API, JSON output with `coding_version` |
-| `src/agreement.py` | Three-way agreement metrics (cause DAGs and A1–A7 policy codes) |
+| `src/agreement.py` | Three-way agreement metrics on cause DAGs (edges and nodes) |
 | `prompts/climate_cause_agent.md` | Live, validated cause prompt (climate application) |
-| `prompts/climate_policy_agent.md` | Live, validated policy prompt (seven binary codes A1–A7) |
 | `prompts/generic_cause_agent.md` | Domain-neutral cause prompt: the climate rules are removed; `{OUTCOME}` is a parameter |
 | `taxonomies/climate_factor_taxonomy.txt` | 25-factor taxonomy of the causes of climate change |
-| `taxonomies/climate_policy_taxonomy.txt` | Policy taxonomy A1–A7 |
 | `taxonomies/turnover_taxonomy_illustrative.txt` | Illustrative 11-factor taxonomy of employee turnover (**not validated**) |
-| `annotation_app/` | R Shiny app for human coding (configured for the climate taxonomy) |
-| `docs/technical_appendix.pdf` | Technical appendix to the Stage-1 proposal: pipeline, taxonomies, prompts, validation design, benchmark results, failure modes |
+| `annotation_app/` | R Shiny app for human coding (configured for the climate taxonomy; its policy-coding task is not used by this repository) |
+| `docs/technical_appendix.pdf` | Technical appendix to the Stage-1 proposal: pipeline, taxonomy, prompt, validation design, benchmark results, model comparison |
 | `examples/turnover/` | Stylized manager's answer (Figure 2 of the proposal), five further invented answers, and a synthetic agreement demo |
 
 ## Install
@@ -95,7 +93,7 @@ python src/agreement.py \
 
 ## Origin
 
-The pipeline was built for the Climate Change Narratives project (Guido, Fares, Dubois, Romaniuc, Sapone). This repository is a curated copy. The climate prompts, taxonomies, annotation app and agreement metrics are unchanged; the coder script is a simplified, domain-neutral version of the project's CLI, without its incremental-run registry.
+The pipeline was built for the Climate Change Narratives project (Guido, Fares, Dubois, Romaniuc, Sapone). This repository is a curated copy. The climate cause prompt, the factor taxonomy, the annotation app and the cause agreement metrics are unchanged; the coder script is a simplified, domain-neutral version of the project's CLI, without its incremental-run registry.
 
 ## License
 
