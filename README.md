@@ -1,6 +1,6 @@
-# Measuring causal mental models at scale with LLMs: prototype
+# MindGraph: making mental models scalable with AI (prototype)
 
-Prototype repository for the Stage-1 proposal "Measuring Causal Mental Models at Scale using AI" (A. Guido, D. Secchi), *Organization Science* special issue "AI-Assisted Frontiers in Organizational Science".
+Prototype repository for the Stage-1 proposal "Making Mental Models Scalable with AI: The MindGraph Method" (A. Guido, D. Secchi), *Organization Science* special issue "AI-Assisted Frontiers in Organizational Science".
 
 The instrument reads a free-text answer, for example to "In your own words, what causes X, and how are the causes related?", and returns the respondent's causal mental model as a directed acyclic graph (DAG) over the factors of an *a priori* taxonomy. The model is validated as a coder: on a benchmark sample, its agreement with two trained human coders is compared with the agreement between the two humans.
 
